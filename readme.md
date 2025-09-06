@@ -2,7 +2,7 @@
 
 Fretly is a sleek, modern web application designed to help guitarists of all levels visualize musical scales, modes, and their corresponding chords directly on an interactive fretboard. This project was built to transform abstract music theory into a practical, hands-on learning tool.
 
-**Live Demo:** `[https://noqui.github.io/fretly/]`
+**Live Demo:** [https://noqui.github.io/fretly/](https://noqui.github.io/fretly/)
 
 ## Core Features
 
