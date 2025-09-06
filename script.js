@@ -26,12 +26,13 @@ const fretboardContainer = document.getElementById('fretboard-container');
 const chordsDisplay = document.getElementById('chords-display');
 const scaleDescription = document.getElementById('scale-description');
 const notePlayer = document.getElementById('note-player');
+const infoIcon = document.getElementById('info-icon');
 const tourOverlay = document.getElementById('tour-overlay');
 const tourTooltip = document.getElementById('tour-tooltip');
 const tourText = document.getElementById('tour-text');
 const tourCounter = document.getElementById('tour-counter');
 const tourNextBtn = document.getElementById('tour-next-btn');
-const infoIcon = document.getElementById('info-icon'); // New element
+const themeSwitcher = document.getElementById('theme-switcher');
 
 // --- 3. CORE LOGIC ---
 function calculateScaleNotes(rootNote, formula) {
@@ -103,8 +104,7 @@ function highlightChordTones(chordName) {
     });
 }
 
-// --- INTERACTIVE TOUR LOGIC ---
-
+// --- 4. INTERACTIVE TOUR LOGIC ---
 const tourSteps = [
     { elementId: 'key-select', text: 'First, choose your root note. This is the "home base" for your scale.' },
     { elementId: 'scale-select', text: 'Next, select a scale or mode to see all its notes on the fretboard.' },
@@ -126,6 +126,7 @@ function showTourStep(index) {
     if (index === tourSteps.length - 1) { tourNextBtn.textContent = 'Finish'; } else { tourNextBtn.textContent = 'Next'; }
 }
 function startTour() {
+    currentStep = 0;
     tourOverlay.classList.remove('hidden');
     tourTooltip.classList.remove('hidden');
     showTourStep(currentStep);
@@ -136,23 +137,28 @@ function endTour() {
     document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
 }
 
-// --- INITIALIZATION and EVENT LISTENERS ---
+// --- 5. THEME SWITCHER LOGIC ---
+function setTheme(theme) {
+    document.body.classList.toggle('light-theme', theme === 'light');
+    themeSwitcher.textContent = theme === 'light' ? 'dark_mode' : 'light_mode';
+    localStorage.setItem('fretlyTheme', theme);
+}
+
+// --- 6. INITIALIZATION and EVENT LISTENERS ---
 generateFretboard();
 drawFretboardAndNotes();
 keySelect.addEventListener('change', drawFretboardAndNotes);
 scaleSelect.addEventListener('change', drawFretboardAndNotes);
-
-// UPDATED: The tour is now only started by clicking the info icon
-infoIcon.addEventListener('click', () => {
-    currentStep = 0; // Reset tour to the first step
-    startTour();
-});
-
+infoIcon.addEventListener('click', startTour);
 tourNextBtn.addEventListener('click', () => {
     currentStep++;
     if (currentStep < tourSteps.length) { showTourStep(currentStep); } else { endTour(); }
 });
-
+themeSwitcher.addEventListener('click', () => {
+    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+});
 chordsDisplay.addEventListener('click', (event) => {
     const clickedChip = event.target.closest('.chord-chip');
     if (!clickedChip) return;
@@ -199,8 +205,7 @@ fretboardContainer.addEventListener('click', (event) => {
     }
 });
 
-// REMOVED: The automatic tour start on the first visit is no longer needed
-// if (!localStorage.getItem('fretlyTourCompleted')) {
-//     startTour();
-// }
+// Load saved theme on startup
+const savedTheme = localStorage.getItem('fretlyTheme') || 'dark';
+setTheme(savedTheme);
 

@@ -15,6 +15,7 @@ body {
     color: var(--text-light);
     margin: 0;
     padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -36,10 +37,11 @@ header {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    margin-bottom: 15px;
 }
 
 h1 {
-    margin: 0 0 15px 0;
+    margin: 0;
     font-weight: 500;
 }
 
@@ -48,11 +50,26 @@ h1 {
     color: var(--text-dark);
     cursor: pointer;
     transition: color 0.3s ease;
-    margin-bottom: 15px; /* Aligns with h1's bottom margin */
 }
 
 #info-icon:hover {
     color: var(--text-light);
+}
+
+#theme-switcher {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0;
+    margin-left: auto; /* Pushes it to the right */
+}
+
+#theme-switcher:hover {
+    color: var(--text-light);
+    transform: rotate(15deg);
 }
 
 .controls {
@@ -70,7 +87,7 @@ h1 {
 #scale-description .one-liner {
     margin: 0 0 10px 0;
     font-style: normal;
-    color: #FFFFFF;
+    color: var(--text-light);
 }
 
 #scale-description .artist-list {
@@ -143,7 +160,7 @@ main {
     left: 0;
     right: 0;
     height: 1px;
-    background-color: #444;
+    background-color: #666; /* Light gray string for dark theme */
     transform: translateY(-50%);
     z-index: 1;
 }
@@ -159,8 +176,8 @@ main {
 /* --- Note Styles --- */
 .note {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background-color: var(--accent-color);
     border: none;
     border-radius: 50%;
@@ -257,7 +274,7 @@ main {
     color: var(--text-light);
     padding: 15px 20px;
     border-radius: 8px;
-    border: 0px solid var(--border-color);
+    border: 1px solid var(--border-color);
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     z-index: 1001;
     max-width: 300px;
@@ -302,5 +319,41 @@ main {
 
 .hidden {
     display: none !important;
+}
+
+/* --- Light Theme Styles --- */
+body.light-theme {
+    --accent-color: #007BFF; /* A nice blue for light mode */
+    --root-note-color: #DC3545; /* A strong red for light mode */
+    --text-light: #212529; /* Dark text */
+    --text-dark: #6c757d; /* Lighter gray text */
+    --bg-dark: #f8f9fa; /* Very light gray background */
+    --bg-medium: #ffffff; /* White for components */
+    --border-color: #dee2e6; /* Light border */
+}
+
+body.light-theme #fretboard-container,
+body.light-theme select,
+body.light-theme .chord-chip {
+    border: 1px solid var(--border-color);
+}
+
+body.light-theme .note {
+    color: var(--bg-medium);
+}
+
+body.light-theme .chord-chip:hover,
+body.light-theme .chord-chip.active {
+    color: var(--bg-medium);
+}
+
+body.light-theme #tour-tooltip {
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+}
+
+/* Light theme string color */
+body.light-theme .fret::before {
+    background-color: #ccc;
 }
 
