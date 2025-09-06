@@ -61,7 +61,7 @@ h1 {
 }
 
 #scale-description .artist-list b {
-    color: var(--root-note-color);
+    color: var(--text-light);
     font-weight: 500;
 }
 
@@ -153,7 +153,7 @@ main {
     z-index: 10;
     transform: scale(0.95);
     transition: transform 0.2s ease, opacity 0.3s ease;
-    cursor: pointer; /* UPDATED: Add pointer cursor */
+    cursor: pointer;
 }
 
 .note.dimmed {
@@ -188,7 +188,7 @@ main {
     margin: 0 0 20px 0;
     font-size: 1.5rem;
     font-weight:500;
-    color: var(--root-note-color);
+    color: var(--text-light);
 }
 
 #chords-display {
@@ -220,4 +220,67 @@ main {
     background-color: var(--root-note-color);
     color: var(--bg-dark);
     transform: translateY(-3px);
+}
+
+/* --- Interactive Tour Styles --- */
+#tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+}
+
+#tour-tooltip {
+    position: absolute;
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    z-index: 1001;
+    max-width: 300px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: top 0.3s ease, left 0.3s ease, opacity 0.3s ease;
+}
+
+#tour-text {
+    margin-bottom: 15px;
+}
+
+.tour-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#tour-counter {
+    font-size: 0.8rem;
+    color: var(--text-dark);
+}
+
+#tour-next-btn {
+    background-color: var(--root-note-color);
+    color: var(--bg-dark);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-family: 'Google Sans Flex', 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.tour-highlight {
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+    border-radius: 6px;
+}
+
+.hidden {
+    display: none !important;
 }
