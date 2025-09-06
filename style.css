@@ -1,0 +1,223 @@
+/* --- Global Styles & Layout (Minimalist Theme) --- */
+:root {
+    --accent-color: #FFFFFF;
+    --root-note-color: #00bfff; 
+    --text-light: #f0f0f0;
+    --text-dark: #888;
+    --bg-dark: #111111;
+    --bg-medium: #1e1e1e;
+    --border-color: #3a3a3a;
+}
+
+body {
+    font-family: 'Google Sans Flex', 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: transparent;
+    border: none;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: none;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    margin: 0 0 15px 0;
+    font-weight: 500;
+}
+
+.controls {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+#scale-description {
+    margin: 20px auto 0 auto;
+    max-width: 600px;
+    min-height: 4em;
+}
+
+#scale-description .one-liner {
+    margin: 0 0 10px 0;
+    font-style: normal;
+    color: #FFFFFF;
+}
+
+#scale-description .artist-list {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+#scale-description .artist-list b {
+    color: var(--root-note-color);
+    font-weight: 500;
+}
+
+
+.control-group label {
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+    font-family: 'Google Sans Flex', 'Poppins', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+main {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* --- Fretboard Styles (Minimalist Redesign) --- */
+#fretboard-container {
+    display: grid;
+    grid-template-columns: 50px repeat(24, minmax(60px, 1fr));
+    gap: 0;
+    background-color: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    min-width: 1650px;
+    padding: 10px 0;
+    margin: 0 auto;
+}
+
+.string {
+    display: contents;
+}
+
+.fret {
+    position: relative;
+    background-color: transparent;
+    border-right: 1px solid var(--border-color);
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fret:first-child {
+    border-left: 6px solid var(--border-color);
+}
+
+.fret::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #444;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.fret[data-fret="3"], .fret[data-fret="5"], .fret[data-fret="7"], .fret[data-fret="9"], .fret[data-fret="15"], .fret[data-fret="17"], .fret[data-fret="19"], .fret[data-fret="21"] {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 15%, transparent 16%);
+}
+.fret[data-fret="12"], .fret[data-fret="24"] {
+    background-image: radial-gradient(circle at 50% 25%, rgba(255,255,255,0.1) 15%, transparent 16%),
+                      radial-gradient(circle at 50% 75%, rgba(255,255,255,0.1) 15%, transparent 16%);
+}
+
+/* --- Note Styles --- */
+.note {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: var(--bg-dark);
+    z-index: 10;
+    transform: scale(0.95);
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    cursor: pointer; /* UPDATED: Add pointer cursor */
+}
+
+.note.dimmed {
+    opacity: 0.25;
+    transform: scale(0.85);
+}
+
+.fret:hover .note {
+    transform: scale(1.1);
+}
+
+.note.root-note {
+    background-color: var(--root-note-color);
+}
+
+/* --- Chord Display Styles --- */
+#chords-container {
+    background-color: transparent;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 30px;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#chords-container h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+    font-weight:500;
+    color: var(--root-note-color);
+}
+
+#chords-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.chord-chip {
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Google Sans Flex', 'Poppins', sans-serif;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.chord-chip:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+}
+
+.chord-chip.active {
+    background-color: var(--root-note-color);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+}
