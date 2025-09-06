@@ -31,9 +31,28 @@ header {
     margin-right: auto;
 }
 
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
 h1 {
     margin: 0 0 15px 0;
     font-weight: 500;
+}
+
+#info-icon {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-bottom: 15px; /* Aligns with h1's bottom margin */
+}
+
+#info-icon:hover {
+    color: var(--text-light);
 }
 
 .controls {
@@ -238,7 +257,7 @@ main {
     color: var(--text-light);
     padding: 15px 20px;
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: 0px solid var(--border-color);
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     z-index: 1001;
     max-width: 300px;
@@ -284,3 +303,4 @@ main {
 .hidden {
     display: none !important;
 }
+

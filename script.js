@@ -31,6 +31,7 @@ const tourTooltip = document.getElementById('tour-tooltip');
 const tourText = document.getElementById('tour-text');
 const tourCounter = document.getElementById('tour-counter');
 const tourNextBtn = document.getElementById('tour-next-btn');
+const infoIcon = document.getElementById('info-icon'); // New element
 
 // --- 3. CORE LOGIC ---
 function calculateScaleNotes(rootNote, formula) {
@@ -133,7 +134,6 @@ function endTour() {
     tourOverlay.classList.add('hidden');
     tourTooltip.classList.add('hidden');
     document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
-    localStorage.setItem('fretlyTourCompleted', 'true');
 }
 
 // --- INITIALIZATION and EVENT LISTENERS ---
@@ -141,10 +141,18 @@ generateFretboard();
 drawFretboardAndNotes();
 keySelect.addEventListener('change', drawFretboardAndNotes);
 scaleSelect.addEventListener('change', drawFretboardAndNotes);
+
+// UPDATED: The tour is now only started by clicking the info icon
+infoIcon.addEventListener('click', () => {
+    currentStep = 0; // Reset tour to the first step
+    startTour();
+});
+
 tourNextBtn.addEventListener('click', () => {
     currentStep++;
     if (currentStep < tourSteps.length) { showTourStep(currentStep); } else { endTour(); }
 });
+
 chordsDisplay.addEventListener('click', (event) => {
     const clickedChip = event.target.closest('.chord-chip');
     if (!clickedChip) return;
@@ -191,7 +199,8 @@ fretboardContainer.addEventListener('click', (event) => {
     }
 });
 
-// Check if the tour should start
-if (!localStorage.getItem('fretlyTourCompleted')) {
-    startTour();
-}
+// REMOVED: The automatic tour start on the first visit is no longer needed
+// if (!localStorage.getItem('fretlyTourCompleted')) {
+//     startTour();
+// }
+
